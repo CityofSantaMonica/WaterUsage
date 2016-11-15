@@ -1,5 +1,5 @@
 ﻿using System;
-using CSM.WaterUsage.Customers;
+using CSM.WaterUsage.Customers.EF;
 
 namespace CSM.WaterUsage.ETL
 {

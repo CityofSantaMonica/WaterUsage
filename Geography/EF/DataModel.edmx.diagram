@@ -5,9 +5,9 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="32839b49c3084960a76f96f1ae6c9304" Name="Diagram1" ZoomLevel="102">
-        <EntityTypeShape EntityType="CSM.WaterUsage.Geography.CensusBlocks" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CSM.WaterUsage.Geography.Centerlines" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CSM.WaterUsage.Geography.ParcelCentroids" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CSM.WaterUsage.Geography.EF.CensusBlocks" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CSM.WaterUsage.Geography.EF.Centerlines" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CSM.WaterUsage.Geography.EF.ParcelCentroids" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

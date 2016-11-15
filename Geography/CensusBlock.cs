@@ -1,4 +1,6 @@
-﻿namespace CSM.WaterUsage.Geography
+﻿using CSM.WaterUsage.Geography.EF;
+
+namespace CSM.WaterUsage.Geography
 {
     public class CensusBlock
     {

@@ -7,19 +7,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CSM.WaterUsage.Customers
+namespace CSM.WaterUsage.Customers.EF
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class AccountService
+    public partial class UsageRecord
     {
         public int account_number { get; set; }
         public short occupant_code { get; set; }
+        public Nullable<System.DateTime> bill_date { get; set; }
+        public Nullable<decimal> net { get; set; }
+        public Nullable<System.DateTime> prorate_from { get; set; }
+        public Nullable<System.DateTime> prorate_to { get; set; }
+        public Nullable<decimal> usage_billed { get; set; }
+        public int batch_number { get; set; }
         public string utility_type { get; set; }
         public string bill_code { get; set; }
-        public Nullable<System.DateTime> start_date { get; set; }
-        public Nullable<System.DateTime> end_date { get; set; }
-        public string category_code { get; set; }
+        public short canrev { get; set; }
     }
 }

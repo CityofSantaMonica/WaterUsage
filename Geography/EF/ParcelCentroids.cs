@@ -7,15 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CSM.WaterUsage.Geography
+namespace CSM.WaterUsage.Geography.EF
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class CensusBlocks
+    public partial class ParcelCentroids
     {
         public int OBJECTID { get; set; }
-        public string GEOID10 { get; set; }
+        public string SitusHouse { get; set; }
+        public string SitusStree { get; set; }
         public System.Data.Entity.Spatial.DbGeometry Shape { get; set; }
     }
 }

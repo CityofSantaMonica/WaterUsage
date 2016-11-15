@@ -115,7 +115,7 @@
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="CSM.WaterUsage.Customers" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="CSM.WaterUsage.Customers.EF" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="UsageRecord">
           <Key>
             <PropertyRef Name="account_number" />
@@ -173,10 +173,10 @@
           <Property Name="category_code" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
         </EntityType>
         <EntityContainer Name="CustomerEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="UsageRecords" EntityType="CSM.WaterUsage.Customers.UsageRecord" />
-          <EntitySet Name="Accounts" EntityType="CSM.WaterUsage.Customers.Account" />
-          <EntitySet Name="UsageCategories" EntityType="CSM.WaterUsage.Customers.UsageCategory" />
-          <EntitySet Name="AccountsServices" EntityType="CSM.WaterUsage.Customers.AccountService" />
+          <EntitySet Name="UsageRecords" EntityType="CSM.WaterUsage.Customers.EF.UsageRecord" />
+          <EntitySet Name="Accounts" EntityType="CSM.WaterUsage.Customers.EF.Account" />
+          <EntitySet Name="UsageCategories" EntityType="CSM.WaterUsage.Customers.EF.UsageCategory" />
+          <EntitySet Name="AccountsServices" EntityType="CSM.WaterUsage.Customers.EF.AccountService" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -185,7 +185,7 @@
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="CustomersModelStoreContainer" CdmEntityContainer="CustomerEntities">
           <EntitySetMapping Name="UsageRecords">
-            <EntityTypeMapping TypeName="CSM.WaterUsage.Customers.UsageRecord">
+            <EntityTypeMapping TypeName="CSM.WaterUsage.Customers.EF.UsageRecord">
               <MappingFragment StoreEntitySet="sm_water_usage">
                 <ScalarProperty Name="canrev" ColumnName="canrev" />
                 <ScalarProperty Name="account_number" ColumnName="account_no" />
@@ -202,7 +202,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Accounts">
-            <EntityTypeMapping TypeName="CSM.WaterUsage.Customers.Account">
+            <EntityTypeMapping TypeName="CSM.WaterUsage.Customers.EF.Account">
               <MappingFragment StoreEntitySet="sm_water_usage_account">
                 <ScalarProperty Name="account_number" ColumnName="account_no" />
                 <ScalarProperty Name="occupant_code" ColumnName="occupant_code" />
@@ -218,7 +218,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UsageCategories">
-            <EntityTypeMapping TypeName="CSM.WaterUsage.Customers.UsageCategory">
+            <EntityTypeMapping TypeName="CSM.WaterUsage.Customers.EF.UsageCategory">
               <MappingFragment StoreEntitySet="sm_water_usage_category">
                 <ScalarProperty Name="code" ColumnName="cat_code" />
                 <ScalarProperty Name="description" ColumnName="cat_descript" />
@@ -227,7 +227,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AccountsServices">
-            <EntityTypeMapping TypeName="CSM.WaterUsage.Customers.AccountService">
+            <EntityTypeMapping TypeName="CSM.WaterUsage.Customers.EF.AccountService">
               <MappingFragment StoreEntitySet="sm_water_usage_service">
                 <ScalarProperty Name="account_number" ColumnName="account_no" />
                 <ScalarProperty Name="occupant_code" ColumnName="occupant_code" />

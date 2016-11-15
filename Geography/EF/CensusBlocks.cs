@@ -7,19 +7,15 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CSM.WaterUsage.Geography
+namespace CSM.WaterUsage.Geography.EF
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Centerlines
+    public partial class CensusBlocks
     {
         public int OBJECTID { get; set; }
-        public string FULLNAME { get; set; }
-        public Nullable<decimal> ADLF { get; set; }
-        public Nullable<decimal> ADLT { get; set; }
-        public Nullable<decimal> ADRF { get; set; }
-        public Nullable<decimal> ADRT { get; set; }
+        public string GEOID10 { get; set; }
         public System.Data.Entity.Spatial.DbGeometry Shape { get; set; }
     }
 }

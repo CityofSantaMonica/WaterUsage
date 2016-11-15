@@ -42,7 +42,7 @@
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="CSM.WaterUsage.Geography" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="CSM.WaterUsage.Geography.EF" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="CensusBlocks">
           <Key>
             <PropertyRef Name="OBJECTID" />
@@ -73,9 +73,9 @@
           <Property Name="Shape" Type="Geometry" />
         </EntityType>
         <EntityContainer Name="GeographyEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="CensusBlocks" EntityType="CSM.WaterUsage.Geography.CensusBlocks" />
-          <EntitySet Name="Centerlines" EntityType="CSM.WaterUsage.Geography.Centerlines" />
-          <EntitySet Name="ParcelCentroids" EntityType="CSM.WaterUsage.Geography.ParcelCentroids" />
+          <EntitySet Name="CensusBlocks" EntityType="CSM.WaterUsage.Geography.EF.CensusBlocks" />
+          <EntitySet Name="Centerlines" EntityType="CSM.WaterUsage.Geography.EF.Centerlines" />
+          <EntitySet Name="ParcelCentroids" EntityType="CSM.WaterUsage.Geography.EF.ParcelCentroids" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -84,7 +84,7 @@
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="GeographyModelStoreContainer" CdmEntityContainer="GeographyEntities">
           <EntitySetMapping Name="CensusBlocks">
-            <EntityTypeMapping TypeName="CSM.WaterUsage.Geography.CensusBlocks">
+            <EntityTypeMapping TypeName="CSM.WaterUsage.Geography.EF.CensusBlocks">
               <MappingFragment StoreEntitySet="CENSUS_BLOCK_2010_SM">
                 <ScalarProperty Name="OBJECTID" ColumnName="OBJECTID" />
                 <ScalarProperty Name="GEOID10" ColumnName="GEOID10" />
@@ -93,7 +93,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Centerlines">
-            <EntityTypeMapping TypeName="CSM.WaterUsage.Geography.Centerlines">
+            <EntityTypeMapping TypeName="CSM.WaterUsage.Geography.EF.Centerlines">
               <MappingFragment StoreEntitySet="CNTRLINE">
                 <ScalarProperty Name="OBJECTID" ColumnName="OBJECTID" />
                 <ScalarProperty Name="FULLNAME" ColumnName="FULLNAME" />
@@ -106,7 +106,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ParcelCentroids">
-            <EntityTypeMapping TypeName="CSM.WaterUsage.Geography.ParcelCentroids">
+            <EntityTypeMapping TypeName="CSM.WaterUsage.Geography.EF.ParcelCentroids">
               <MappingFragment StoreEntitySet="PARCELS_CENTROIDS">
                 <ScalarProperty Name="OBJECTID" ColumnName="OBJECTID" />
                 <ScalarProperty Name="SitusHouse" ColumnName="SitusHouse" />

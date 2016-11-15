@@ -1,4 +1,4 @@
-﻿using CSM.WaterUsage.Customers;
+﻿using CSM.WaterUsage.Customers.EF;
 using CSM.WaterUsage.Geography;
 using Newtonsoft.Json;
 using SODA;

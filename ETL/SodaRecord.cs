@@ -1,6 +1,6 @@
 ﻿using System;
 using SODA.Models;
-using CSM.WaterUsage.Customers;
+using CSM.WaterUsage.Customers.EF;
 using CSM.WaterUsage.Geography;
 using System.Data.Entity.Spatial;
 

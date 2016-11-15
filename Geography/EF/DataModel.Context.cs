@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CSM.WaterUsage.Customers
+namespace CSM.WaterUsage.Geography.EF
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class CustomerEntities : DbContext
+    public partial class GeographyEntities : DbContext
     {
-        public CustomerEntities()
-            : base("name=CustomerEntities")
+        public GeographyEntities()
+            : base("name=GeographyEntities")
         {
         }
     
@@ -25,9 +25,8 @@ namespace CSM.WaterUsage.Customers
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<UsageRecord> UsageRecords { get; set; }
-        public virtual DbSet<Account> Accounts { get; set; }
-        public virtual DbSet<UsageCategory> UsageCategories { get; set; }
-        public virtual DbSet<AccountService> AccountsServices { get; set; }
+        public virtual DbSet<CensusBlocks> CensusBlocks { get; set; }
+        public virtual DbSet<Centerlines> Centerlines { get; set; }
+        public virtual DbSet<ParcelCentroids> ParcelCentroids { get; set; }
     }
 }

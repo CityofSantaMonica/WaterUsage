@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CSM.WaterUsage.Customers
+namespace CSM.WaterUsage.Customers.EF
 {
     using System;
     using System.Collections.Generic;
