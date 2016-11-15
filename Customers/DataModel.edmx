@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CustomersModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sm_water_usage">
+          <Key>
+            <PropertyRef Name="account_no" />
+            <PropertyRef Name="occupant_code" />
+            <PropertyRef Name="batchnumber" />
+            <PropertyRef Name="canrev" />
+          </Key>
+          <Property Name="account_no" Type="int" Nullable="false" />
+          <Property Name="occupant_code" Type="smallint" Nullable="false" />
+          <Property Name="billdate" Type="datetime" />
+          <Property Name="net" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="prorate_from" Type="datetime" />
+          <Property Name="prorate_to" Type="datetime" />
+          <Property Name="usage_billed" Type="decimal" Precision="16" Scale="2" />
+          <Property Name="batchnumber" Type="int" Nullable="false" />
+          <Property Name="utility_type" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="billcode" Type="char" MaxLength="6" />
+          <Property Name="canrev" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sm_water_usage_account">
+          <Key>
+            <PropertyRef Name="account_no" />
+            <PropertyRef Name="occupant_code" />
+          </Key>
+          <Property Name="account_no" Type="int" Nullable="false" />
+          <Property Name="occupant_code" Type="smallint" Nullable="false" />
+          <Property Name="debtor_no" Type="int" />
+          <Property Name="serv_street_no" Type="decimal" Precision="5" Scale="0" />
+          <Property Name="serv_street" Type="char" MaxLength="20" />
+          <Property Name="serv_unit" Type="char" MaxLength="5" />
+          <Property Name="serv_region" Type="char" MaxLength="15" />
+          <Property Name="serv_city" Type="char" MaxLength="20" />
+          <Property Name="serv_province" Type="char" MaxLength="5" />
+          <Property Name="serv_postal_zip" Type="char" MaxLength="12" />
+        </EntityType>
+        <EntityType Name="sm_water_usage_category">
+          <Key>
+            <PropertyRef Name="cat_code" />
+          </Key>
+          <Property Name="cat_code" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="cat_descript" Type="char" MaxLength="20" />
+          <Property Name="cat_flag" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="sm_water_usage_service">
+          <Key>
+            <PropertyRef Name="account_no" />
+            <PropertyRef Name="occupant_code" />
+          </Key>
+          <Property Name="account_no" Type="int" Nullable="false" />
+          <Property Name="occupant_code" Type="smallint" Nullable="false" />
+          <Property Name="utility_type" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="bill_code" Type="char" MaxLength="6" />
+          <Property Name="start_date" Type="datetime" />
+          <Property Name="end_date" Type="datetime" />
+          <Property Name="category" Type="char" MaxLength="2" />
+        </EntityType>
+        <EntityContainer Name="CustomersModelStoreContainer">
+          <EntitySet Name="sm_water_usage" EntityType="Self.sm_water_usage" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [sm_water_usage].[account_no] AS [account_no], 
+    [sm_water_usage].[occupant_code] AS [occupant_code], 
+    [sm_water_usage].[billdate] AS [billdate], 
+    [sm_water_usage].[net] AS [net], 
+    [sm_water_usage].[prorate_from] AS [prorate_from], 
+    [sm_water_usage].[prorate_to] AS [prorate_to], 
+    [sm_water_usage].[usage_billed] AS [usage_billed], 
+    [sm_water_usage].[batchnumber] AS [batchnumber], 
+    [sm_water_usage].[utility_type] AS [utility_type], 
+    [sm_water_usage].[billcode] AS [billcode], 
+    [sm_water_usage].[canrev] AS [canrev]
+    FROM [dbo].[sm_water_usage] AS [sm_water_usage]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="sm_water_usage_account" EntityType="Self.sm_water_usage_account" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [sm_water_usage_account].[account_no] AS [account_no], 
+    [sm_water_usage_account].[occupant_code] AS [occupant_code], 
+    [sm_water_usage_account].[debtor_no] AS [debtor_no], 
+    [sm_water_usage_account].[serv_street_no] AS [serv_street_no], 
+    [sm_water_usage_account].[serv_street] AS [serv_street], 
+    [sm_water_usage_account].[serv_unit] AS [serv_unit], 
+    [sm_water_usage_account].[serv_region] AS [serv_region], 
+    [sm_water_usage_account].[serv_city] AS [serv_city], 
+    [sm_water_usage_account].[serv_province] AS [serv_province], 
+    [sm_water_usage_account].[serv_postal_zip] AS [serv_postal_zip]
+    FROM [dbo].[sm_water_usage_account] AS [sm_water_usage_account]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="sm_water_usage_category" EntityType="Self.sm_water_usage_category" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>
+              SELECT
+              [sm_water_usage_category].[cat_code] AS [cat_code],
+              [sm_water_usage_category].[cat_descript] AS [cat_descript],
+              [sm_water_usage_category].[cat_flag] AS [cat_flag]
+              FROM [dbo].[sm_water_usage_category] AS [sm_water_usage_category]
+            </DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="sm_water_usage_service" EntityType="Self.sm_water_usage_service" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [sm_water_usage_service].[account_no] AS [account_no], 
+    [sm_water_usage_service].[occupant_code] AS [occupant_code], 
+    [sm_water_usage_service].[utility_type] AS [utility_type], 
+    [sm_water_usage_service].[bill_code] AS [bill_code], 
+    [sm_water_usage_service].[start_date] AS [start_date], 
+    [sm_water_usage_service].[end_date] AS [end_date], 
+    [sm_water_usage_service].[category] AS [category]
+    FROM [dbo].[sm_water_usage_service] AS [sm_water_usage_service]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CSM.WaterUsage.Customers" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="UsageRecord">
+          <Key>
+            <PropertyRef Name="account_number" />
+            <PropertyRef Name="occupant_code" />
+            <PropertyRef Name="batch_number" />
+            <PropertyRef Name="canrev" />
+          </Key>
+          <Property Name="account_number" Type="Int32" Nullable="false" />
+          <Property Name="occupant_code" Type="Int16" Nullable="false" />
+          <Property Name="bill_date" Type="DateTime" Precision="3" />
+          <Property Name="net" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="prorate_from" Type="DateTime" Precision="3" />
+          <Property Name="prorate_to" Type="DateTime" Precision="3" />
+          <Property Name="usage_billed" Type="Decimal" Precision="16" Scale="2" />
+          <Property Name="batch_number" Type="Int32" Nullable="false" />
+          <Property Name="utility_type" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="bill_code" Type="String" MaxLength="6" FixedLength="true" Unicode="false" />
+          <Property Name="canrev" Type="Int16" Nullable="false" />
+          </EntityType>
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="account_number" />
+            <PropertyRef Name="occupant_code" />
+          </Key>
+          <Property Name="account_number" Type="Int32" Nullable="false" />
+          <Property Name="occupant_code" Type="Int16" Nullable="false" />
+          <Property Name="debtor_number" Type="Int32" />
+          <Property Name="street_number" Type="Decimal" Precision="5" Scale="0" />
+          <Property Name="street" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="unit" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="region" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="city" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="province" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="zip" Type="String" MaxLength="12" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="UsageCategory">
+          <Key>
+            <PropertyRef Name="code" />
+          </Key>
+          <Property Name="code" Type="String" MaxLength="2" Nullable="false" Unicode="false" FixedLength="true" />
+          <Property Name="description" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="flag" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
+        </EntityType>
+        <EntityType Name="AccountService">
+          <Key>
+            <PropertyRef Name="account_number" />
+            <PropertyRef Name="occupant_code" />
+          </Key>
+          <Property Name="account_number" Type="Int32" Nullable="false" />
+          <Property Name="occupant_code" Type="Int16" Nullable="false" />
+          <Property Name="utility_type" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="bill_code" Type="String" MaxLength="6" FixedLength="true" Unicode="false" />
+          <Property Name="start_date" Type="DateTime" Precision="3" />
+          <Property Name="end_date" Type="DateTime" Precision="3" />
+          <Property Name="category_code" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="CustomerEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="UsageRecords" EntityType="CSM.WaterUsage.Customers.UsageRecord" />
+          <EntitySet Name="Accounts" EntityType="CSM.WaterUsage.Customers.Account" />
+          <EntitySet Name="UsageCategories" EntityType="CSM.WaterUsage.Customers.UsageCategory" />
+          <EntitySet Name="AccountsServices" EntityType="CSM.WaterUsage.Customers.AccountService" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CustomersModelStoreContainer" CdmEntityContainer="CustomerEntities">
+          <EntitySetMapping Name="UsageRecords">
+            <EntityTypeMapping TypeName="CSM.WaterUsage.Customers.UsageRecord">
+              <MappingFragment StoreEntitySet="sm_water_usage">
+                <ScalarProperty Name="canrev" ColumnName="canrev" />
+                <ScalarProperty Name="account_number" ColumnName="account_no" />
+                <ScalarProperty Name="occupant_code" ColumnName="occupant_code" />
+                <ScalarProperty Name="bill_date" ColumnName="billdate" />
+                <ScalarProperty Name="net" ColumnName="net" />
+                <ScalarProperty Name="prorate_from" ColumnName="prorate_from" />
+                <ScalarProperty Name="prorate_to" ColumnName="prorate_to" />
+                <ScalarProperty Name="usage_billed" ColumnName="usage_billed" />
+                <ScalarProperty Name="batch_number" ColumnName="batchnumber" />
+                <ScalarProperty Name="utility_type" ColumnName="utility_type" />
+                <ScalarProperty Name="bill_code" ColumnName="billcode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Accounts">
+            <EntityTypeMapping TypeName="CSM.WaterUsage.Customers.Account">
+              <MappingFragment StoreEntitySet="sm_water_usage_account">
+                <ScalarProperty Name="account_number" ColumnName="account_no" />
+                <ScalarProperty Name="occupant_code" ColumnName="occupant_code" />
+                <ScalarProperty Name="debtor_number" ColumnName="debtor_no" />
+                <ScalarProperty Name="street_number" ColumnName="serv_street_no" />
+                <ScalarProperty Name="street" ColumnName="serv_street" />
+                <ScalarProperty Name="unit" ColumnName="serv_unit" />
+                <ScalarProperty Name="region" ColumnName="serv_region" />
+                <ScalarProperty Name="city" ColumnName="serv_city" />
+                <ScalarProperty Name="province" ColumnName="serv_province" />
+                <ScalarProperty Name="zip" ColumnName="serv_postal_zip" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsageCategories">
+            <EntityTypeMapping TypeName="CSM.WaterUsage.Customers.UsageCategory">
+              <MappingFragment StoreEntitySet="sm_water_usage_category">
+                <ScalarProperty Name="code" ColumnName="cat_code" />
+                <ScalarProperty Name="description" ColumnName="cat_descript" />
+                <ScalarProperty Name="flag" ColumnName="cat_flag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AccountsServices">
+            <EntityTypeMapping TypeName="CSM.WaterUsage.Customers.AccountService">
+              <MappingFragment StoreEntitySet="sm_water_usage_service">
+                <ScalarProperty Name="account_number" ColumnName="account_no" />
+                <ScalarProperty Name="occupant_code" ColumnName="occupant_code" />
+                <ScalarProperty Name="utility_type" ColumnName="utility_type" />
+                <ScalarProperty Name="bill_code" ColumnName="bill_code" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="end_date" ColumnName="end_date" />
+                <ScalarProperty Name="category_code" ColumnName="category" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

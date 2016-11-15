@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{34F3A83E-74B4-451D-8BC0-B3EC5A61A92C}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		LICENSE.txt = LICENSE.txt
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ETL", "ETL\ETL.csproj", "{06CB0729-C14F-4DCC-9600-9B01C8474559}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Customers", "Customers\Customers.csproj", "{3231B40B-3EA9-42E8-90F3-CAD35A1CACF0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geography", "Geography\Geography.csproj", "{7D09D136-5AFD-4331-B4AF-E5F64177950A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{06CB0729-C14F-4DCC-9600-9B01C8474559}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06CB0729-C14F-4DCC-9600-9B01C8474559}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06CB0729-C14F-4DCC-9600-9B01C8474559}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06CB0729-C14F-4DCC-9600-9B01C8474559}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3231B40B-3EA9-42E8-90F3-CAD35A1CACF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3231B40B-3EA9-42E8-90F3-CAD35A1CACF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3231B40B-3EA9-42E8-90F3-CAD35A1CACF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3231B40B-3EA9-42E8-90F3-CAD35A1CACF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D09D136-5AFD-4331-B4AF-E5F64177950A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D09D136-5AFD-4331-B4AF-E5F64177950A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D09D136-5AFD-4331-B4AF-E5F64177950A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D09D136-5AFD-4331-B4AF-E5F64177950A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
