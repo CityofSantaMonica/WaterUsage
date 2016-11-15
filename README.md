@@ -1,6 +1,6 @@
 # Water Usage
 
-Water usage information for the City of Santa Monica.
+Water usage information from the City of Santa Monica.
 
 The data produced by this service is open and published at:  
 https://data.smgov.net/Public-Services/Water-Usage/4nnq-5vzx
