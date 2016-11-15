@@ -1,4 +1,4 @@
-﻿using CSM.WaterUsage.Customers.EF;
+﻿using CSM.WaterUsage.Customers;
 using CSM.WaterUsage.Geography;
 using Newtonsoft.Json;
 using SODA;
@@ -25,10 +25,7 @@ namespace CSM.WaterUsage.ETL
 
         static Resource<SodaRecord> waterUsageDataSet;
 
-        static CustomerEntities customers;
-        static Dictionary<string, Account> accounts;
-        static Dictionary<string, AccountService> services;
-        static Dictionary<string, UsageCategory> categories;
+        static ICustomersSerivce customers;
         static StreetSegmentLocator streetSegments;
         static CensusBlockLocator censusBlocks;
 
@@ -51,11 +48,7 @@ namespace CSM.WaterUsage.ETL
 
                     logger.WriteLine("Connected to dataset: {0} with ID {1}", waterUsageDataSet.Metadata.Name, waterUsageDataSet.Metadata.Identifier);
 
-                    customers = new CustomerEntities();
-                    customers.Database.CommandTimeout = 300;
-                    accounts = customers.Accounts.ToDictionary(a => KeyMaker.ForAccount(a), a => a);
-                    services = customers.AccountsServices.ToDictionary(s => KeyMaker.ForService(s), s => s);
-                    categories = customers.UsageCategories.ToDictionary(c => KeyMaker.ForCategory(c), c => c);
+                    customers = new CustomersService();
 
                     streetSegments = new StreetSegmentLocator();
                     censusBlocks = new CensusBlockLocator();
@@ -102,7 +95,7 @@ namespace CSM.WaterUsage.ETL
         {
             logger.WriteLine("Upserting all records...");
 
-            var usageRecords = customers.UsageRecords.OrderByDescending(w => w.prorate_to);
+            var usageRecords = customers.GetUsageRecords();
 
             upsertInBatches(usageRecords);
         }
@@ -117,7 +110,7 @@ namespace CSM.WaterUsage.ETL
 
             logger.WriteLine("Most recent record is from {0:yyyy-MM-dd}", latestDate);
 
-            var usageRecords = customers.UsageRecords.OrderByDescending(w => w.prorate_to).Where(w => w.prorate_to >= latestDate);
+            var usageRecords = customers.GetUsageRecords(latestDate);
 
             logger.WriteLine("Found {0} new records to upsert", usageRecords.Count());
 
@@ -146,7 +139,9 @@ namespace CSM.WaterUsage.ETL
             else
             {
                 logger.WriteLine("Recursive call: {0}", DateTime.Now);
-                failedUpsertRecords = failedUpserts.SelectMany(result => (IEnumerable<SodaRecord>)JsonConvert.DeserializeObject<IEnumerable<SodaRecord>>(result.Data)).Where(usage => !String.IsNullOrEmpty(usage.id)).ToList();
+                failedUpsertRecords = failedUpserts.SelectMany(result => (IEnumerable<SodaRecord>)JsonConvert.DeserializeObject<IEnumerable<SodaRecord>>(result.Data))
+                                                   .Where(usage => !String.IsNullOrEmpty(usage.id))
+                                                   .ToList();
             }
 
             logger.WriteLine("Upserting {0} records in batches of size {1}", failedUpsertRecords.Count, batchSize);
@@ -173,7 +168,7 @@ namespace CSM.WaterUsage.ETL
                 upsertFailures(failedUpserts);
         }
 
-        static void upsertInBatches(IQueryable<UsageRecord> water_usages, bool writeLogFiles = false)
+        static void upsertInBatches(IEnumerable<IUsageRecord> water_usages, bool writeLogFiles = false)
         {
             if (writeLogFiles)
                 cleanupFiles();
@@ -184,7 +179,7 @@ namespace CSM.WaterUsage.ETL
 
             while (true)
             {
-                IList<SodaRecord> batch = new List<SodaRecord>();
+                var batch = new List<SodaRecord>();
 
                 foreach (var usage in water_usages.Skip(batchNumber * batchSize).Take(batchSize))
                 {
@@ -222,26 +217,26 @@ namespace CSM.WaterUsage.ETL
             }
         }
 
-        static SodaRecord makeSodaRecord(UsageRecord usage)
+        static SodaRecord makeSodaRecord(IUsageRecord usage)
         {
-            SodaRecord usage_record = null;
+            SodaRecord soda = null;
 
             try
             {
-                var account = accounts.ContainsKey(KeyMaker.ForAccount(usage)) ? accounts[KeyMaker.ForAccount(usage)] : new Account();
-                var service = services.ContainsKey(KeyMaker.ForService(usage)) ? services[KeyMaker.ForService(usage)] : new AccountService();
-                var category = categories.ContainsKey(KeyMaker.ForCategory(service)) ? categories[KeyMaker.ForCategory(service)] : new UsageCategory();
+                var account = customers.GetAccount(usage);
+                var service = customers.GetAccountService(usage);
+                var category = customers.GetUsageCategory(service);
 
-                usage_record = SodaRecord.From(usage, account, service, category, streetSegments, censusBlocks);
+                soda = SodaRecord.Make(usage, account, service, category, streetSegments, censusBlocks);
             }
             catch (Exception ex)
             {
                 File.AppendAllLines(exceptionFile, new[] { ex.ToString() });
                 logger.Write(ex);
-                usage_record = null;
+                soda = null;
             }
 
-            return usage_record;
+            return soda;
         }
 
         static void logSodaResult(SodaResult result, string file = null, bool writeLogFiles = false)

@@ -1,7 +1,7 @@
-﻿using System;
-using SODA.Models;
-using CSM.WaterUsage.Customers.EF;
+﻿using CSM.WaterUsage.Customers;
 using CSM.WaterUsage.Geography;
+using SODA.Models;
+using System;
 using System.Data.Entity.Spatial;
 
 namespace CSM.WaterUsage.ETL
@@ -68,11 +68,11 @@ namespace CSM.WaterUsage.ETL
             id = String.Format("{0}{1}{2}{3}{4}", account_number, occupant_code, batch_number, canrev, current_read_date);
         }
 
-        public static SodaRecord From(
-            UsageRecord water,
-            Account account,
-            AccountService service,
-            UsageCategory category,
+        public static SodaRecord Make(
+            IUsageRecord usage,
+            IAccount account,
+            IAccountService service,
+            IUsageCategory category,
             StreetSegmentLocator streetSegments,
             CensusBlockLocator censusBlocks)
         {
@@ -101,26 +101,26 @@ namespace CSM.WaterUsage.ETL
                 censusBlock = censusBlocks.Locate(number, trimmedStreet);
             }
 
-            var usage = new SodaRecord()
+            var record = new SodaRecord()
             {
                 //account
-                account_number = water.account_number,
-                occupant_code = water.occupant_code,
+                account_number = usage.account_number,
+                occupant_code = usage.occupant_code,
                 debtor_number = account.debtor_number,
-                category_code = KeyMaker.ForCategory(category),
+                category_code = category.code,
                 category_description = category.description.SafeTrim(),
-                bill_code = water.bill_code == service.bill_code ? water.bill_code.SafeTrim() : String.Empty,
-                utility_type = water.utility_type == service.utility_type ? water.utility_type.SafeTrim() : String.Empty,
+                bill_code = usage.bill_code == service.bill_code ? usage.bill_code.SafeTrim() : String.Empty,
+                utility_type = usage.utility_type == service.utility_type ? usage.utility_type.SafeTrim() : String.Empty,
                 start_date = service.start_date.HasValue ? service.start_date.Value.ToString(dateFormat) : null,
                 end_date = service.end_date.HasValue ? service.end_date.Value.ToString(dateFormat) : null,
 
                 //usage
-                current_read_date = water.prorate_to.HasValue ? water.prorate_to.Value.ToString(dateFormat) : null,
-                last_read_date = water.prorate_from.HasValue ? water.prorate_from.Value.ToString(dateFormat) : null,
-                usage_hcf = water.usage_billed,
-                net = water.net,
-                bill_date = water.bill_date.HasValue ? water.bill_date.Value.ToString(dateFormat) : null,
-                batch_number = water.batch_number,
+                current_read_date = usage.prorate_to.HasValue ? usage.prorate_to.Value.ToString(dateFormat) : null,
+                last_read_date = usage.prorate_from.HasValue ? usage.prorate_from.Value.ToString(dateFormat) : null,
+                usage_hcf = usage.usage_billed,
+                net = usage.net,
+                bill_date = usage.bill_date.HasValue ? usage.bill_date.Value.ToString(dateFormat) : null,
+                batch_number = usage.batch_number,
 
                 //location
                 street_number = account.street_number,
@@ -135,9 +135,9 @@ namespace CSM.WaterUsage.ETL
                 street_segment_wkt = convertedSegment == null ? null : convertedSegment.AsText(),
             };
 
-            usage.SetId(water.canrev.ToString());
+            record.SetId(usage.canrev.ToString());
 
-            return usage;
+            return record;
         }
     }
 

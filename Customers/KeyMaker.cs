@@ -1,11 +1,10 @@
 ﻿using System;
-using CSM.WaterUsage.Customers.EF;
 
-namespace CSM.WaterUsage.ETL
+namespace CSM.WaterUsage.Customers
 {
-    public class KeyMaker
+    class KeyMaker
     {
-        public static string ForAccount(Account account)
+        public static string ForAccount(IAccount account)
         {
             if (account == null)
                 return String.Empty;
@@ -13,7 +12,7 @@ namespace CSM.WaterUsage.ETL
             return forAccount(account.account_number, account.occupant_code);
         }
 
-        public static string ForAccount(UsageRecord usage)
+        public static string ForAccount(IUsageRecord usage)
         {
             if (usage == null)
                 return String.Empty;
@@ -21,7 +20,7 @@ namespace CSM.WaterUsage.ETL
             return forAccount(usage.account_number, usage.occupant_code);
         }
 
-        public static string ForCategory(UsageCategory category)
+        public static string ForCategory(IUsageCategory category)
         {
             if (category == null)
                 return String.Empty;
@@ -29,7 +28,7 @@ namespace CSM.WaterUsage.ETL
             return forCategory(category.code);
         }
 
-        public static string ForCategory(AccountService service)
+        public static string ForCategory(IAccountService service)
         {
             if (service == null)
                 return String.Empty;
@@ -37,7 +36,7 @@ namespace CSM.WaterUsage.ETL
             return forCategory(service.category_code);
         }
 
-        public static string ForService(AccountService service)
+        public static string ForService(IAccountService service)
         {
             if (service == null)
                 return String.Empty;
@@ -45,7 +44,7 @@ namespace CSM.WaterUsage.ETL
             return forAccount(service.account_number, service.occupant_code);
         }
 
-        public static string ForService(UsageRecord usage)
+        public static string ForService(IUsageRecord usage)
         {
             if (usage == null)
                 return String.Empty;
@@ -63,7 +62,7 @@ namespace CSM.WaterUsage.ETL
             if (String.IsNullOrEmpty(code))
                 return String.Empty;
 
-            return code.SafeTrim().ToUpper();
+            return code.Trim().ToUpper();
         }
     }
 }

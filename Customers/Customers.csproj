@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomersService.cs" />
     <Compile Include="EF\DataModel.Context.cs">
       <DependentUpon>DataModel.Context.tt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -68,6 +69,7 @@
     <Compile Include="EF\Account.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="EF\Models.cs" />
     <Compile Include="EF\UsageCategory.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -77,6 +79,8 @@
     <Compile Include="EF\UsageRecord.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="KeyMaker.cs" />
+    <Compile Include="Models.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
