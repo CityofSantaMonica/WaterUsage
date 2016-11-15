@@ -21,13 +21,13 @@ namespace CSM.WaterUsage.ETL
         static readonly string logFile = "log.txt";
         static readonly string failedFile = "failed.json";
 
+        static readonly string dateFormat = "yyyy-MM-dd";
+
         static SimpleFileLogger logger;
 
         static Resource<SodaRecord> waterUsageDataSet;
-
         static ICustomersSerivce customers;
-        static StreetSegmentLocator streetSegments;
-        static CensusBlockLocator censusBlocks;
+        static IGeographyService geography;
 
         static int batchSize = 1;
 
@@ -49,9 +49,7 @@ namespace CSM.WaterUsage.ETL
                     logger.WriteLine("Connected to dataset: {0} with ID {1}", waterUsageDataSet.Metadata.Name, waterUsageDataSet.Metadata.Identifier);
 
                     customers = new CustomersService();
-
-                    streetSegments = new StreetSegmentLocator();
-                    censusBlocks = new CensusBlockLocator();
+                    geography = new GeographyService();
 
                     upsertLatest();
                 }
@@ -227,7 +225,55 @@ namespace CSM.WaterUsage.ETL
                 var service = customers.GetAccountService(usage);
                 var category = customers.GetUsageCategory(service);
 
-                soda = SodaRecord.Make(usage, account, service, category, streetSegments, censusBlocks);
+                string scrubbedAddress = null;
+                string censusBlockId = null;
+                StreetSegment streetSegment = null;
+
+                string trimmedStreet = account.street.SafeTrim().ToUpper();
+
+                if (account.street_number.HasValue)
+                {
+                    int number = (int)account.street_number.Value;
+                    scrubbedAddress = geography.AnonymizeAddress(number, trimmedStreet);
+                    censusBlockId = geography.GetCensusBlockId(number, trimmedStreet);
+                    streetSegment = geography.GetStreetSegment(number, trimmedStreet);
+                }
+
+                soda = new SodaRecord()
+                {
+                    //account
+                    account_number = usage.account_number,
+                    occupant_code = usage.occupant_code,
+                    debtor_number = account.debtor_number,
+                    category_code = category.code,
+                    category_description = category.description.SafeTrim(),
+                    bill_code = usage.bill_code == service.bill_code ? usage.bill_code.SafeTrim() : String.Empty,
+                    utility_type = usage.utility_type == service.utility_type ? usage.utility_type.SafeTrim() : String.Empty,
+                    start_date = service.start_date.HasValue ? service.start_date.Value.ToString(dateFormat) : null,
+                    end_date = service.end_date.HasValue ? service.end_date.Value.ToString(dateFormat) : null,
+
+                    //usage
+                    current_read_date = usage.prorate_to.HasValue ? usage.prorate_to.Value.ToString(dateFormat) : null,
+                    last_read_date = usage.prorate_from.HasValue ? usage.prorate_from.Value.ToString(dateFormat) : null,
+                    usage_hcf = usage.usage_billed,
+                    net = usage.net,
+                    bill_date = usage.bill_date.HasValue ? usage.bill_date.Value.ToString(dateFormat) : null,
+                    batch_number = usage.batch_number,
+
+                    //location
+                    street_number = account.street_number,
+                    street_name = trimmedStreet,
+                    street_scrubbed = scrubbedAddress,
+                    street_side = streetSegment.Side,
+                    zip_code = account.zip.SafeTrim(),
+                    census_block_id = censusBlockId,
+                    street_centroid_lat = streetSegment.Centroid == null ? default(double) : streetSegment.Centroid.YCoordinate,
+                    street_centroid_long = streetSegment.Centroid == null ? default(double) : streetSegment.Centroid.XCoordinate,
+                    street_centroid_wkt = streetSegment.Centroid == null ? null : streetSegment.Centroid.AsText(),
+                    street_segment_wkt = streetSegment.Shape == null ? null : streetSegment.Shape.AsText(),
+                };
+
+                soda.SetId(usage.canrev.ToString());
             }
             catch (Exception ex)
             {

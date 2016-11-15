@@ -6,7 +6,7 @@ using DotSpatial.Topology;
 
 namespace CSM.WaterUsage.Geography
 {
-    public class ProjectionConverter
+    class ProjectionConverter
     {
         private static readonly ProjectionInfo startProjection = KnownCoordinateSystems.Projected.StatePlaneNad1983Feet.NAD1983StatePlaneCaliforniaVFIPS0405Feet;
         private static readonly ProjectionInfo endProjection = KnownCoordinateSystems.Geographic.World.WGS1984;
