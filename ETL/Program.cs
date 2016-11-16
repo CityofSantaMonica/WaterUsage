@@ -26,7 +26,7 @@ namespace CSM.WaterUsage.ETL
         static SimpleFileLogger logger;
 
         static Resource<SodaRecord> waterUsageDataSet;
-        static ICustomersSerivce customers;
+        static ICustomersService customers;
         static IGeographyService geography;
 
         static int batchSize = 1;

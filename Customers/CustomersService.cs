@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace CSM.WaterUsage.Customers
 {
-    public interface ICustomersSerivce
+    public interface ICustomersService
     {
         IAccount GetAccount(IUsageRecord usage);
         IAccountService GetAccountService(IUsageRecord usage);
@@ -15,7 +15,7 @@ namespace CSM.WaterUsage.Customers
         IEnumerable<IUsageRecord> GetUsageRecords(DateTime afterDate);
     }
 
-    public class CustomersService : ICustomersSerivce
+    public class CustomersService : ICustomersService
     {
         private readonly CustomerEntities entities;
 
