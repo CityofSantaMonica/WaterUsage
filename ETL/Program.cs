@@ -51,7 +51,15 @@ namespace CSM.WaterUsage.ETL
                     customers = new CustomersService();
                     geography = new GeographyService();
 
-                    upsertLatest();
+                    if (args.Length > 0 && args.Any(a => a.StartsWith("/start")))
+                    {
+                        var startDate = DateTime.Parse(args.First(a => a.StartsWith("/start")).Split('=')[1]);
+                        upsertSince(startDate);
+                    }
+                    else
+                    {
+                        upsertLatest();
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -106,11 +114,17 @@ namespace CSM.WaterUsage.ETL
             var latest = waterUsageDataSet.Query<LatestRecord>(soql).SingleOrDefault();
             var latestDate = latest == null ? DateTime.Now.AddDays(-7) : latest.current_read_date;
 
-            logger.WriteLine("Most recent record is from {0:yyyy-MM-dd}", latestDate);
+            upsertSince(latestDate);
+        }
 
-            var usageRecords = customers.GetUsageRecords(latestDate);
+        static void upsertSince(DateTime startDate)
+        {
+            logger.WriteLine("Upsert starting from {0:yyyy-MM-dd}", startDate);
 
-            logger.WriteLine("Found {0} new records to upsert", usageRecords.Count());
+            var usageRecords = customers.GetUsageRecords(startDate);
+
+            logger.WriteLine("Found {0} records to upsert", usageRecords.Count());
+            logger.WriteLine("Approximate # batches: {0}", usageRecords.Count() / batchSize);
 
             upsertInBatches(usageRecords, true);
         }
