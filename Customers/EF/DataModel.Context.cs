@@ -13,11 +13,15 @@ namespace CSM.WaterUsage.Customers.EF
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class CustomerEntities : DbContext
+    internal partial class CustomerEntities : DbContext
     {
         public CustomerEntities()
             : base("name=CustomerEntities")
         {
+            UsageRecords = Set<UsageRecord>();
+            Accounts = Set<Account>();
+            UsageCategories = Set<UsageCategory>();
+            AccountsServices = Set<AccountService>();
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -25,9 +29,9 @@ namespace CSM.WaterUsage.Customers.EF
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<UsageRecord> UsageRecords { get; set; }
-        public virtual DbSet<Account> Accounts { get; set; }
-        public virtual DbSet<UsageCategory> UsageCategories { get; set; }
-        public virtual DbSet<AccountService> AccountsServices { get; set; }
+        internal virtual DbSet<UsageRecord> UsageRecords { get; set; }
+        internal virtual DbSet<Account> Accounts { get; set; }
+        internal virtual DbSet<UsageCategory> UsageCategories { get; set; }
+        internal virtual DbSet<AccountService> AccountsServices { get; set; }
     }
 }

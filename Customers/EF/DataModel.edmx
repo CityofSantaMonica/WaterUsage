@@ -116,7 +116,7 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CSM.WaterUsage.Customers.EF" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="UsageRecord">
+        <EntityType Name="UsageRecord" a:TypeAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
           <Key>
             <PropertyRef Name="account_number" />
             <PropertyRef Name="occupant_code" />
@@ -135,7 +135,7 @@
           <Property Name="bill_code" Type="String" MaxLength="6" FixedLength="true" Unicode="false" />
           <Property Name="canrev" Type="Int16" Nullable="false" />
           </EntityType>
-        <EntityType Name="Account">
+        <EntityType Name="Account" a:TypeAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
           <Key>
             <PropertyRef Name="account_number" />
             <PropertyRef Name="occupant_code" />
@@ -151,7 +151,7 @@
           <Property Name="province" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
           <Property Name="zip" Type="String" MaxLength="12" FixedLength="true" Unicode="false" />
         </EntityType>
-        <EntityType Name="UsageCategory">
+        <EntityType Name="UsageCategory" a:TypeAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
           <Key>
             <PropertyRef Name="code" />
           </Key>
@@ -159,7 +159,7 @@
           <Property Name="description" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
           <Property Name="flag" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
         </EntityType>
-        <EntityType Name="AccountService">
+        <EntityType Name="AccountService" a:TypeAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
           <Key>
             <PropertyRef Name="account_number" />
             <PropertyRef Name="occupant_code" />
@@ -172,11 +172,11 @@
           <Property Name="end_date" Type="DateTime" Precision="3" />
           <Property Name="category_code" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
         </EntityType>
-        <EntityContainer Name="CustomerEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="UsageRecords" EntityType="CSM.WaterUsage.Customers.EF.UsageRecord" />
-          <EntitySet Name="Accounts" EntityType="CSM.WaterUsage.Customers.EF.Account" />
-          <EntitySet Name="UsageCategories" EntityType="CSM.WaterUsage.Customers.EF.UsageCategory" />
-          <EntitySet Name="AccountsServices" EntityType="CSM.WaterUsage.Customers.EF.AccountService" />
+        <EntityContainer Name="CustomerEntities" annotation:LazyLoadingEnabled="true" a:TypeAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
+          <EntitySet Name="UsageRecords" EntityType="CSM.WaterUsage.Customers.EF.UsageRecord" a:GetterAccess="Internal" />
+          <EntitySet Name="Accounts" EntityType="CSM.WaterUsage.Customers.EF.Account" a:GetterAccess="Internal" />
+          <EntitySet Name="UsageCategories" EntityType="CSM.WaterUsage.Customers.EF.UsageCategory" a:GetterAccess="Internal" />
+          <EntitySet Name="AccountsServices" EntityType="CSM.WaterUsage.Customers.EF.AccountService" a:GetterAccess="Internal" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>

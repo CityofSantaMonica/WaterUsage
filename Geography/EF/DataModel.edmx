@@ -43,7 +43,7 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CSM.WaterUsage.Geography.EF" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="CensusBlocks">
+        <EntityType Name="CensusBlocks" a:TypeAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
           <Key>
             <PropertyRef Name="OBJECTID" />
           </Key>
@@ -51,7 +51,7 @@
           <Property Name="GEOID10" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="Shape" Type="Geometry" />
         </EntityType>
-        <EntityType Name="Centerlines">
+        <EntityType Name="Centerlines" a:TypeAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
           <Key>
             <PropertyRef Name="OBJECTID" />
           </Key>
@@ -63,7 +63,7 @@
           <Property Name="ADRT" Type="Decimal" Precision="38" Scale="8" />
           <Property Name="Shape" Type="Geometry" />
         </EntityType>
-        <EntityType Name="ParcelCentroids">
+        <EntityType Name="ParcelCentroids" a:TypeAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
           <Key>
             <PropertyRef Name="OBJECTID" />
           </Key>
@@ -72,10 +72,10 @@
           <Property Name="SitusStree" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
           <Property Name="Shape" Type="Geometry" />
         </EntityType>
-        <EntityContainer Name="GeographyEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="CensusBlocks" EntityType="CSM.WaterUsage.Geography.EF.CensusBlocks" />
-          <EntitySet Name="Centerlines" EntityType="CSM.WaterUsage.Geography.EF.Centerlines" />
-          <EntitySet Name="ParcelCentroids" EntityType="CSM.WaterUsage.Geography.EF.ParcelCentroids" />
+        <EntityContainer Name="GeographyEntities" annotation:LazyLoadingEnabled="true" a:TypeAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
+          <EntitySet Name="CensusBlocks" EntityType="CSM.WaterUsage.Geography.EF.CensusBlocks" a:GetterAccess="Internal" />
+          <EntitySet Name="Centerlines" EntityType="CSM.WaterUsage.Geography.EF.Centerlines" a:GetterAccess="Internal" />
+          <EntitySet Name="ParcelCentroids" EntityType="CSM.WaterUsage.Geography.EF.ParcelCentroids" a:GetterAccess="Internal" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>

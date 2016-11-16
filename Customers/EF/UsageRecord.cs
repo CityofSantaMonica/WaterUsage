@@ -12,7 +12,7 @@ namespace CSM.WaterUsage.Customers.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class UsageRecord
+    internal partial class UsageRecord
     {
         public int account_number { get; set; }
         public short occupant_code { get; set; }

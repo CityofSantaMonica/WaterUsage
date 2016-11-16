@@ -12,7 +12,7 @@ namespace CSM.WaterUsage.Geography.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class ParcelCentroids
+    internal partial class ParcelCentroids
     {
         public int OBJECTID { get; set; }
         public string SitusHouse { get; set; }

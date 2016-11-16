@@ -1,5 +1,4 @@
-﻿using CSM.WaterUsage.Geography.EF;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -14,16 +13,16 @@ namespace CSM.WaterUsage.Geography
 
     public class GeographyService : IGeographyService
     {
-        private readonly GeographyEntities entities;
+        private readonly EF.GeographyEntities entities;
 
-        private IEnumerable<EF.CensusBlocks> allCensusBlocks;
-        private IEnumerable<EF.Centerlines> allCenterlines;
-        private IEnumerable<EF.ParcelCentroids> allParcelCentroids;
+        private IEnumerable<ICensusBlock> allCensusBlocks;
+        private IEnumerable<ICenterline> allCenterlines;
+        private IEnumerable<IParcelCentroid> allParcelCentroids;
         private Dictionary<string, IEnumerable<StreetSegment>> segmentsMap;
 
         public GeographyService()
         {
-            entities = new GeographyEntities();
+            entities = new EF.GeographyEntities();
             entities.Database.CommandTimeout = 300;
 
             allCensusBlocks = entities.CensusBlocks.ToArray();
@@ -72,8 +71,7 @@ namespace CSM.WaterUsage.Geography
         private IParcelCentroid findParcelCentroid(int number, string street)
         {
             return allParcelCentroids.Where(p => p.SitusStree.Equals(street, StringComparison.OrdinalIgnoreCase))
-                                     .FirstOrDefault(p => p.SitusHouse.Equals(number.ToString(), StringComparison.OrdinalIgnoreCase))
-                                     as IParcelCentroid;
+                                     .FirstOrDefault(p => p.SitusHouse.Equals(number.ToString(), StringComparison.OrdinalIgnoreCase));
         }
 
         private ICensusBlock findCensusBlock(IParcelCentroid parcel)
@@ -85,7 +83,7 @@ namespace CSM.WaterUsage.Geography
             {
                 if (block.Shape.Contains(parcel.Shape))
                 {
-                    return block as ICensusBlock;
+                    return block;
                 }
             }
 
@@ -118,7 +116,7 @@ namespace CSM.WaterUsage.Geography
             return segments;
         }
 
-        private IEnumerable<StreetSegment> validRanges(EF.Centerlines centerline)
+        private IEnumerable<StreetSegment> validRanges(ICenterline centerline)
         {
             var leftSegment = new StreetSegment()
             {

@@ -9,6 +9,17 @@ namespace CSM.WaterUsage.Geography
         DbGeometry Shape { get; set; }
     }
 
+    public interface ICenterline
+    {
+        int OBJECTID { get; set; }
+        string FULLNAME { get; set; }
+        decimal? ADLF { get; set; }
+        decimal? ADLT { get; set; }
+        decimal? ADRF { get; set; }
+        decimal? ADRT { get; set; }
+        DbGeometry Shape { get; set; }
+    }
+
     public interface IParcelCentroid
     {
         int OBJECTID { get; set; }

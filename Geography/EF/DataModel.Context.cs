@@ -13,11 +13,14 @@ namespace CSM.WaterUsage.Geography.EF
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class GeographyEntities : DbContext
+    internal partial class GeographyEntities : DbContext
     {
         public GeographyEntities()
             : base("name=GeographyEntities")
         {
+            CensusBlocks = Set<CensusBlocks>();
+            Centerlines = Set<Centerlines>();
+            ParcelCentroids = Set<ParcelCentroids>();
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -25,8 +28,8 @@ namespace CSM.WaterUsage.Geography.EF
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<CensusBlocks> CensusBlocks { get; set; }
-        public virtual DbSet<Centerlines> Centerlines { get; set; }
-        public virtual DbSet<ParcelCentroids> ParcelCentroids { get; set; }
+        internal virtual DbSet<CensusBlocks> CensusBlocks { get; set; }
+        internal virtual DbSet<Centerlines> Centerlines { get; set; }
+        internal virtual DbSet<ParcelCentroids> ParcelCentroids { get; set; }
     }
 }

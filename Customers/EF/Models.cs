@@ -1,10 +1,10 @@
 ﻿namespace CSM.WaterUsage.Customers.EF
 {
-    public partial class Account : IAccount { }
+    internal partial class Account : IAccount { }
 
-    public partial class AccountService : IAccountService { }
+    internal partial class AccountService : IAccountService { }
 
-    public partial class UsageCategory : IUsageCategory { }
+    internal partial class UsageCategory : IUsageCategory { }
 
-    public partial class UsageRecord : IUsageRecord { }
+    internal partial class UsageRecord : IUsageRecord { }
 }

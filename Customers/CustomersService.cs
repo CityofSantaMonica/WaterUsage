@@ -1,5 +1,4 @@
-﻿using CSM.WaterUsage.Customers.EF;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,7 +16,7 @@ namespace CSM.WaterUsage.Customers
 
     public class CustomersService : ICustomersService
     {
-        private readonly CustomerEntities entities;
+        private readonly EF.CustomerEntities entities;
 
         private IDictionary<string, IAccount> accounts;
         private IDictionary<string, IAccountService> services;
@@ -25,7 +24,7 @@ namespace CSM.WaterUsage.Customers
 
         public CustomersService()
         {
-            entities = new CustomerEntities();
+            entities = new EF.CustomerEntities();
             entities.Database.CommandTimeout = 300;
 
             accounts = entities.Accounts.ToDictionary(a => KeyMaker.ForAccount(a), a => a as IAccount);
@@ -35,17 +34,17 @@ namespace CSM.WaterUsage.Customers
 
         public IAccount GetAccount(IUsageRecord usage)
         {
-            return accounts.ContainsKey(KeyMaker.ForAccount(usage)) ? accounts[KeyMaker.ForAccount(usage)] : new Account();
+            return accounts.ContainsKey(KeyMaker.ForAccount(usage)) ? accounts[KeyMaker.ForAccount(usage)] : new EF.Account();
         }
 
         public IAccountService GetAccountService(IUsageRecord usage)
         {
-            return services.ContainsKey(KeyMaker.ForService(usage)) ? services[KeyMaker.ForService(usage)] : new AccountService();
+            return services.ContainsKey(KeyMaker.ForService(usage)) ? services[KeyMaker.ForService(usage)] : new EF.AccountService();
         }
 
         public IUsageCategory GetUsageCategory(IAccountService service)
         {
-            var category = categories.ContainsKey(KeyMaker.ForCategory(service)) ? categories[KeyMaker.ForCategory(service)] : new UsageCategory();
+            var category = categories.ContainsKey(KeyMaker.ForCategory(service)) ? categories[KeyMaker.ForCategory(service)] : new EF.UsageCategory();
 
             category.code = KeyMaker.ForCategory(service);
 

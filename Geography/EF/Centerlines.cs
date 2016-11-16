@@ -12,7 +12,7 @@ namespace CSM.WaterUsage.Geography.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class Centerlines
+    internal partial class Centerlines
     {
         public int OBJECTID { get; set; }
         public string FULLNAME { get; set; }

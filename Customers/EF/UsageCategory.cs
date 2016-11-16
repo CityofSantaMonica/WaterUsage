@@ -12,7 +12,7 @@ namespace CSM.WaterUsage.Customers.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class UsageCategory
+    internal partial class UsageCategory
     {
         public string code { get; set; }
         public string description { get; set; }

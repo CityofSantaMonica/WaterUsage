@@ -1,6 +1,8 @@
 ﻿namespace CSM.WaterUsage.Geography.EF
 {
-    public partial class CensusBlocks : ICensusBlock { }
+    internal partial class CensusBlocks : ICensusBlock { }
 
-    public partial class ParcelCentroids : IParcelCentroid { }
+    internal partial class Centerlines : ICenterline { }
+
+    internal partial class ParcelCentroids : IParcelCentroid { }
 }
