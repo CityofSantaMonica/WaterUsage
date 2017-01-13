@@ -37,6 +37,8 @@ namespace CSM.WaterUsage.ETL
             {
                 try
                 {
+                    SqlServerTypes.Utilities.LoadNativeAssemblies(AppDomain.CurrentDomain.BaseDirectory);
+
                     logger.WriteLine("TransferWaterUsage started");
 
                     if (args.Length > 0 && args.Any(a => a.StartsWith("/b")))
@@ -122,9 +124,6 @@ namespace CSM.WaterUsage.ETL
             logger.WriteLine("Upsert starting from {0:yyyy-MM-dd}", startDate);
 
             var usageRecords = customers.GetUsageRecords(startDate);
-
-            logger.WriteLine("Found {0} records to upsert", usageRecords.Count());
-            logger.WriteLine("Approximate # batches: {0}", usageRecords.Count() / batchSize);
 
             upsertInBatches(usageRecords, true);
         }
