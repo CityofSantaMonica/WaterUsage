@@ -6,7 +6,6 @@ namespace CSM.WaterUsage.ETL
     public class SodaRecord
     {
         //account
-        public int account_number { get; set; }
         public short occupant_code { get; set; }
         public int? debtor_number { get; set; }
         public string category_code { get; set; }
@@ -32,14 +31,13 @@ namespace CSM.WaterUsage.ETL
         public int batch_number { get; set; }
 
         //location
-        public decimal? street_number { get; set; }
         public string street_name { get; set; }
-        public string street_scrubbed { get; set; }
+        public string block_address { get; set; }
         public string street_side { get; set; }
         public string zip_code { get; set; }
         public string census_block_id { get; set; }
         public double? street_centroid_lat { get; set; }
-        public double? street_centroid_long { get; set; }
+        public double? street_centroid_lon { get; set; }
         public string street_centroid_wkt { get; set; }
         public LocationColumn street_centroid
         {
@@ -47,10 +45,10 @@ namespace CSM.WaterUsage.ETL
             {
                 if (street_centroid_lat.HasValue
                  && street_centroid_lat.Value > 34
-                 && street_centroid_long.HasValue
-                 && street_centroid_long.Value < -118)
+                 && street_centroid_lon.HasValue
+                 && street_centroid_lon.Value < -118)
                 {
-                    return new LocationColumn { Latitude = street_centroid_lat.ToString(), Longitude = street_centroid_long.ToString(), NeedsRecoding = false };
+                    return new LocationColumn { Latitude = street_centroid_lat.ToString(), Longitude = street_centroid_lon.ToString(), NeedsRecoding = false };
                 }
 
                 return new LocationColumn();
@@ -60,7 +58,7 @@ namespace CSM.WaterUsage.ETL
 
         //unique id
         public string id { get; private set; }
-        public void SetId(string canrev)
+        public void SetId(string account_number, string canrev)
         {
             id = String.Format("{0}{1}{2}{3}{4}", account_number, occupant_code, batch_number, canrev, current_read_date);
         }

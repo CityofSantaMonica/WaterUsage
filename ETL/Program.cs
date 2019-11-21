@@ -253,9 +253,8 @@ namespace CSM.WaterUsage.ETL
                 }
 
                 soda = new SodaRecord();
-                
+
                 //account
-                soda.account_number = usage.account_number;
                 soda.occupant_code = usage.occupant_code;
                 soda.debtor_number = account.debtor_number;
                 soda.category_code = category.code;
@@ -274,9 +273,8 @@ namespace CSM.WaterUsage.ETL
                 soda.batch_number = usage.batch_number;
 
                 //location
-                soda.street_number = account.street_number;
                 soda.street_name = trimmedStreet;
-                soda.street_scrubbed = scrubbedAddress;
+                soda.block_address = scrubbedAddress;
                 soda.zip_code = account.zip.SafeTrim();
                 soda.census_block_id = censusBlockId;
 
@@ -287,7 +285,7 @@ namespace CSM.WaterUsage.ETL
                     if (streetSegment.Centroid != null)
                     {
                         soda.street_centroid_lat = streetSegment.Centroid.YCoordinate;
-                        soda.street_centroid_long = streetSegment.Centroid.XCoordinate;
+                        soda.street_centroid_lon = streetSegment.Centroid.XCoordinate;
                         soda.street_centroid_wkt = streetSegment.Centroid.AsText();
                     }
                     if (streetSegment.Shape != null)
@@ -296,7 +294,7 @@ namespace CSM.WaterUsage.ETL
                     }
                 }
 
-                soda.SetId(usage.canrev.ToString());
+                soda.SetId(usage.account_number.ToString(), usage.canrev.ToString());
             }
             catch (Exception ex)
             {
