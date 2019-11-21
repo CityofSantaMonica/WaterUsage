@@ -3,7 +3,7 @@
 Water usage information from the City of Santa Monica.
 
 The data produced by this service is open and published at:  
-https://data.smgov.net/Public-Services/Water-Usage/4nnq-5vzx
+https://data.smgov.net/Public-Services/Water-Usage/8zih-wn9u
 
 This service is an implementation of our [`SODA.NET`](https://github.com/CityofSantaMonica/SODA.NET) library for publishing
 data to a [Socrata Open Data](https://dev.socrata.com) portal
