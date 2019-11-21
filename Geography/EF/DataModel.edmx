@@ -30,8 +30,8 @@
             <PropertyRef Name="OBJECTID" />
           </Key>
           <Property Name="OBJECTID" Type="int" Nullable="false" />
-          <Property Name="SitusHouse" Type="nvarchar" MaxLength="5" />
-          <Property Name="SitusStree" Type="nvarchar" MaxLength="32" />
+          <Property Name="SitusHouseNo" Type="nvarchar" MaxLength="5" />
+          <Property Name="SitusStreet" Type="nvarchar" MaxLength="32" />
           <Property Name="Shape" Type="geometry" />
         </EntityType>
         <EntityContainer Name="GeographyModelStoreContainer">
@@ -68,8 +68,8 @@
             <PropertyRef Name="OBJECTID" />
           </Key>
           <Property Name="OBJECTID" Type="Int32" Nullable="false" />
-          <Property Name="SitusHouse" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Name="SitusStree" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="SitusHouseNo" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="SitusStreet" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
           <Property Name="Shape" Type="Geometry" />
         </EntityType>
         <EntityContainer Name="GeographyEntities" annotation:LazyLoadingEnabled="true" a:TypeAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
@@ -109,8 +109,8 @@
             <EntityTypeMapping TypeName="CSM.WaterUsage.Geography.EF.ParcelCentroids">
               <MappingFragment StoreEntitySet="PARCELS_CENTROIDS">
                 <ScalarProperty Name="OBJECTID" ColumnName="OBJECTID" />
-                <ScalarProperty Name="SitusHouse" ColumnName="SitusHouse" />
-                <ScalarProperty Name="SitusStree" ColumnName="SitusStree" />
+                <ScalarProperty Name="SitusHouseNo" ColumnName="SitusHouseNo" />
+                <ScalarProperty Name="SitusStreet" ColumnName="SitusStreet" />
                 <ScalarProperty Name="Shape" ColumnName="Shape" />
               </MappingFragment>
             </EntityTypeMapping>

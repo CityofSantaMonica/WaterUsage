@@ -28,7 +28,7 @@ namespace CSM.WaterUsage.Geography
             allCensusBlocks = entities.CensusBlocks.ToArray();
             allCenterlines = entities.Centerlines.ToArray();
             allParcelCentroids = entities.ParcelCentroids.ToArray();
-            
+
             segmentsMap = new Dictionary<string, IEnumerable<StreetSegment>>();
         }
 
@@ -70,8 +70,8 @@ namespace CSM.WaterUsage.Geography
 
         private IParcelCentroid findParcelCentroid(int number, string street)
         {
-            return allParcelCentroids.Where(p => p.SitusStree.Equals(street, StringComparison.OrdinalIgnoreCase))
-                                     .FirstOrDefault(p => p.SitusHouse.Equals(number.ToString(), StringComparison.OrdinalIgnoreCase));
+            return allParcelCentroids.Where(p => p.SitusStreet != null && p.SitusStreet.Equals(street, StringComparison.OrdinalIgnoreCase))
+                                     .FirstOrDefault(p => p.SitusHouseNo != null && p.SitusHouseNo.Equals(number.ToString(), StringComparison.OrdinalIgnoreCase));
         }
 
         private ICensusBlock findCensusBlock(IParcelCentroid parcel)

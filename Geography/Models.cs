@@ -23,8 +23,8 @@ namespace CSM.WaterUsage.Geography
     public interface IParcelCentroid
     {
         int OBJECTID { get; set; }
-        string SitusHouse { get; set; }
-        string SitusStree { get; set; }
+        string SitusHouseNo { get; set; }
+        string SitusStreet { get; set; }
         DbGeometry Shape { get; set; }
     }
 

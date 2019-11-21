@@ -15,8 +15,8 @@ namespace CSM.WaterUsage.Geography.EF
     internal partial class ParcelCentroids
     {
         public int OBJECTID { get; set; }
-        public string SitusHouse { get; set; }
-        public string SitusStree { get; set; }
+        public string SitusHouseNo { get; set; }
+        public string SitusStreet { get; set; }
         public System.Data.Entity.Spatial.DbGeometry Shape { get; set; }
     }
 }
